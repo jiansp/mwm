@@ -52,6 +52,9 @@ public class TestService {
         Cache.BASE_CACHE.put("type", type);
         List list = this.mwmFaceDataMapper.find();
         Cache.FACE_CACHE = list;
+
+        Cache.ORG = (OrgOrgnization) Cache.BASE_CACHE.get("org").get(0);
+        Cache.HOSPITAL = (OrgHospital) Cache.BASE_CACHE.get("hospital").get(0);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
