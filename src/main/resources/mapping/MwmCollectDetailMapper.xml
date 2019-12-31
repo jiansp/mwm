@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmCollectDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmCollectDetail" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="COLLECT_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="BAG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="READ_WR_BY_RFID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_NAME" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TRANSFER_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TRANSFER_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="QR_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RFID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, COLLECT_ID, BAG_ID, TYPE_ID, TYPE_CODE, TYPE_NAME, READ_WR_BY_RFID, WR_ID, WR_CODE, 
+    WR_NAME, TRANSFER_USER_ID, TRANSFER_USER, WEIGHT, COUNT, QR_CODE, RFID, COLLECT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_collect_detail
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_collect_detail
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmCollectDetail" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_collect_detail (ID, COLLECT_ID, BAG_ID, 
+      TYPE_ID, TYPE_CODE, TYPE_NAME, 
+      READ_WR_BY_RFID, WR_ID, WR_CODE, 
+      WR_NAME, TRANSFER_USER_ID, TRANSFER_USER, 
+      WEIGHT, COUNT, QR_CODE, 
+      RFID, COLLECT_TIME)
+    values (#{id,jdbcType=CHAR}, #{collectId,jdbcType=CHAR}, #{bagId,jdbcType=CHAR}, 
+      #{typeId,jdbcType=CHAR}, #{typeCode,jdbcType=CHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{readWrByRfid,jdbcType=CHAR}, #{wrId,jdbcType=CHAR}, #{wrCode,jdbcType=CHAR}, 
+      #{wrName,jdbcType=CHAR}, #{transferUserId,jdbcType=CHAR}, #{transferUser,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=DECIMAL}, #{count,jdbcType=INTEGER}, #{qrCode,jdbcType=VARCHAR}, 
+      #{rfid,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmCollectDetail" >
+    insert into mwm_collect_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="collectId != null" >
+        COLLECT_ID,
+      </if>
+      <if test="bagId != null" >
+        BAG_ID,
+      </if>
+      <if test="typeId != null" >
+        TYPE_ID,
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE,
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME,
+      </if>
+      <if test="readWrByRfid != null" >
+        READ_WR_BY_RFID,
+      </if>
+      <if test="wrId != null" >
+        WR_ID,
+      </if>
+      <if test="wrCode != null" >
+        WR_CODE,
+      </if>
+      <if test="wrName != null" >
+        WR_NAME,
+      </if>
+      <if test="transferUserId != null" >
+        TRANSFER_USER_ID,
+      </if>
+      <if test="transferUser != null" >
+        TRANSFER_USER,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="qrCode != null" >
+        QR_CODE,
+      </if>
+      <if test="rfid != null" >
+        RFID,
+      </if>
+      <if test="collectTime != null" >
+        COLLECT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="collectId != null" >
+        #{collectId,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=CHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="readWrByRfid != null" >
+        #{readWrByRfid,jdbcType=CHAR},
+      </if>
+      <if test="wrId != null" >
+        #{wrId,jdbcType=CHAR},
+      </if>
+      <if test="wrCode != null" >
+        #{wrCode,jdbcType=CHAR},
+      </if>
+      <if test="wrName != null" >
+        #{wrName,jdbcType=CHAR},
+      </if>
+      <if test="transferUserId != null" >
+        #{transferUserId,jdbcType=CHAR},
+      </if>
+      <if test="transferUser != null" >
+        #{transferUser,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="qrCode != null" >
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rfid != null" >
+        #{rfid,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTime != null" >
+        #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmCollectDetail" >
+    update mwm_collect_detail
+    <set >
+      <if test="collectId != null" >
+        COLLECT_ID = #{collectId,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        BAG_ID = #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="typeId != null" >
+        TYPE_ID = #{typeId,jdbcType=CHAR},
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="readWrByRfid != null" >
+        READ_WR_BY_RFID = #{readWrByRfid,jdbcType=CHAR},
+      </if>
+      <if test="wrId != null" >
+        WR_ID = #{wrId,jdbcType=CHAR},
+      </if>
+      <if test="wrCode != null" >
+        WR_CODE = #{wrCode,jdbcType=CHAR},
+      </if>
+      <if test="wrName != null" >
+        WR_NAME = #{wrName,jdbcType=CHAR},
+      </if>
+      <if test="transferUserId != null" >
+        TRANSFER_USER_ID = #{transferUserId,jdbcType=CHAR},
+      </if>
+      <if test="transferUser != null" >
+        TRANSFER_USER = #{transferUser,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="count != null" >
+        COUNT = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="qrCode != null" >
+        QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rfid != null" >
+        RFID = #{rfid,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTime != null" >
+        COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmCollectDetail" >
+    update mwm_collect_detail
+    set COLLECT_ID = #{collectId,jdbcType=CHAR},
+      BAG_ID = #{bagId,jdbcType=CHAR},
+      TYPE_ID = #{typeId,jdbcType=CHAR},
+      TYPE_CODE = #{typeCode,jdbcType=CHAR},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      READ_WR_BY_RFID = #{readWrByRfid,jdbcType=CHAR},
+      WR_ID = #{wrId,jdbcType=CHAR},
+      WR_CODE = #{wrCode,jdbcType=CHAR},
+      WR_NAME = #{wrName,jdbcType=CHAR},
+      TRANSFER_USER_ID = #{transferUserId,jdbcType=CHAR},
+      TRANSFER_USER = #{transferUser,jdbcType=VARCHAR},
+      WEIGHT = #{weight,jdbcType=DECIMAL},
+      COUNT = #{count,jdbcType=INTEGER},
+      QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      RFID = #{rfid,jdbcType=VARCHAR},
+      COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

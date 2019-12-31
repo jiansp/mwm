@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmStockOutMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmStockOut" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="STOCK_OUT_ORDER" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TOTAL_WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="TOTAL_COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TOTAL_BAG" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="STOCK_OUT_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="STOCK_OUT_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STOCK_OUT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="TRANSFER_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TRANSFER_USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, ORG_CODE, HOSPITAL_ID, HOSPITAL_CODE, STOCK_OUT_ORDER, TOTAL_WEIGHT, 
+    TOTAL_COUNT, TOTAL_BAG, STOCK_OUT_USER_ID, STOCK_OUT_USER, STOCK_OUT_TIME, TRANSFER_USER_ID, 
+    TRANSFER_USER_NAME, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_stock_out
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_stock_out
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmStockOut" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_stock_out (ID, ORG_ID, ORG_CODE, HOSPITAL_ID, 
+      HOSPITAL_CODE, STOCK_OUT_ORDER, TOTAL_WEIGHT, 
+      TOTAL_COUNT, TOTAL_BAG, STOCK_OUT_USER_ID, 
+      STOCK_OUT_USER, STOCK_OUT_TIME, TRANSFER_USER_ID, 
+      TRANSFER_USER_NAME, STATUS)
+    values (#{id,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{stockOutOrder,jdbcType=CHAR}, #{totalWeight,jdbcType=DECIMAL}, 
+      #{totalCount,jdbcType=INTEGER}, #{totalBag,jdbcType=INTEGER}, #{stockOutUserId,jdbcType=CHAR}, 
+      #{stockOutUser,jdbcType=VARCHAR}, #{stockOutTime,jdbcType=TIMESTAMP}, #{transferUserId,jdbcType=CHAR}, 
+      #{transferUserName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmStockOut" >
+    insert into mwm_stock_out
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="stockOutOrder != null" >
+        STOCK_OUT_ORDER,
+      </if>
+      <if test="totalWeight != null" >
+        TOTAL_WEIGHT,
+      </if>
+      <if test="totalCount != null" >
+        TOTAL_COUNT,
+      </if>
+      <if test="totalBag != null" >
+        TOTAL_BAG,
+      </if>
+      <if test="stockOutUserId != null" >
+        STOCK_OUT_USER_ID,
+      </if>
+      <if test="stockOutUser != null" >
+        STOCK_OUT_USER,
+      </if>
+      <if test="stockOutTime != null" >
+        STOCK_OUT_TIME,
+      </if>
+      <if test="transferUserId != null" >
+        TRANSFER_USER_ID,
+      </if>
+      <if test="transferUserName != null" >
+        TRANSFER_USER_NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="stockOutOrder != null" >
+        #{stockOutOrder,jdbcType=CHAR},
+      </if>
+      <if test="totalWeight != null" >
+        #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBag != null" >
+        #{totalBag,jdbcType=INTEGER},
+      </if>
+      <if test="stockOutUserId != null" >
+        #{stockOutUserId,jdbcType=CHAR},
+      </if>
+      <if test="stockOutUser != null" >
+        #{stockOutUser,jdbcType=VARCHAR},
+      </if>
+      <if test="stockOutTime != null" >
+        #{stockOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transferUserId != null" >
+        #{transferUserId,jdbcType=CHAR},
+      </if>
+      <if test="transferUserName != null" >
+        #{transferUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmStockOut" >
+    update mwm_stock_out
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="stockOutOrder != null" >
+        STOCK_OUT_ORDER = #{stockOutOrder,jdbcType=CHAR},
+      </if>
+      <if test="totalWeight != null" >
+        TOTAL_WEIGHT = #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCount != null" >
+        TOTAL_COUNT = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBag != null" >
+        TOTAL_BAG = #{totalBag,jdbcType=INTEGER},
+      </if>
+      <if test="stockOutUserId != null" >
+        STOCK_OUT_USER_ID = #{stockOutUserId,jdbcType=CHAR},
+      </if>
+      <if test="stockOutUser != null" >
+        STOCK_OUT_USER = #{stockOutUser,jdbcType=VARCHAR},
+      </if>
+      <if test="stockOutTime != null" >
+        STOCK_OUT_TIME = #{stockOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transferUserId != null" >
+        TRANSFER_USER_ID = #{transferUserId,jdbcType=CHAR},
+      </if>
+      <if test="transferUserName != null" >
+        TRANSFER_USER_NAME = #{transferUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmStockOut" >
+    update mwm_stock_out
+    set ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      STOCK_OUT_ORDER = #{stockOutOrder,jdbcType=CHAR},
+      TOTAL_WEIGHT = #{totalWeight,jdbcType=DECIMAL},
+      TOTAL_COUNT = #{totalCount,jdbcType=INTEGER},
+      TOTAL_BAG = #{totalBag,jdbcType=INTEGER},
+      STOCK_OUT_USER_ID = #{stockOutUserId,jdbcType=CHAR},
+      STOCK_OUT_USER = #{stockOutUser,jdbcType=VARCHAR},
+      STOCK_OUT_TIME = #{stockOutTime,jdbcType=TIMESTAMP},
+      TRANSFER_USER_ID = #{transferUserId,jdbcType=CHAR},
+      TRANSFER_USER_NAME = #{transferUserName,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

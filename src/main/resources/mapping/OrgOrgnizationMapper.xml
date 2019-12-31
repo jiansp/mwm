@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.OrgOrgnizationMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.OrgOrgnization" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="BUSINESS_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PHONETIC_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FIVE_STROKE_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOMIZE_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EN_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SHROT_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LOGO_PATH" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PROVINCE_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PROVINCE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CITY_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ORGANIZATION_CERTIFICATE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="MOBILE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DATA_VERSION" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="DELETED_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DELETED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BUSINESS_ID, CODE, NAME, PHONETIC_CODE, FIVE_STROKE_CODE, CUSTOMIZE_CODE, EN_NAME, 
+    SHROT_NAME, LOGO_PATH, PROVINCE_CODE, PROVINCE_NAME, CITY_CODE, CITY_NAME, ORGANIZATION_CERTIFICATE, 
+    MOBILE, ADDRESS, STATUS, CREATED_BY, CREATED_BY_NAME, CREATED_AT, UPDATED_BY, UPDATED_BY_NAME, 
+    UPDATED_AT, DATA_VERSION, DELETED_STATUS, DELETED_AT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from org_orgnization
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from org_orgnization
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.OrgOrgnization" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into org_orgnization (ID, BUSINESS_ID, CODE,
+      NAME, PHONETIC_CODE, FIVE_STROKE_CODE, 
+      CUSTOMIZE_CODE, EN_NAME, SHROT_NAME, 
+      LOGO_PATH, PROVINCE_CODE, PROVINCE_NAME, 
+      CITY_CODE, CITY_NAME, ORGANIZATION_CERTIFICATE, 
+      MOBILE, ADDRESS, STATUS, 
+      CREATED_BY, CREATED_BY_NAME, CREATED_AT, 
+      UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+      DATA_VERSION, DELETED_STATUS, DELETED_AT
+      )
+    values (#{id,jdbcType=CHAR}, #{businessId,jdbcType=CHAR}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phoneticCode,jdbcType=VARCHAR}, #{fiveStrokeCode,jdbcType=VARCHAR}, 
+      #{customizeCode,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, #{shrotName,jdbcType=VARCHAR}, 
+      #{logoPath,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{organizationCertificate,jdbcType=CHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{createdBy,jdbcType=CHAR}, #{createdByName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=CHAR}, #{updatedByName,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{dataVersion,jdbcType=DECIMAL}, #{deletedStatus,jdbcType=CHAR}, #{deletedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.OrgOrgnization" >
+    insert into org_orgnization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="phoneticCode != null" >
+        PHONETIC_CODE,
+      </if>
+      <if test="fiveStrokeCode != null" >
+        FIVE_STROKE_CODE,
+      </if>
+      <if test="customizeCode != null" >
+        CUSTOMIZE_CODE,
+      </if>
+      <if test="enName != null" >
+        EN_NAME,
+      </if>
+      <if test="shrotName != null" >
+        SHROT_NAME,
+      </if>
+      <if test="logoPath != null" >
+        LOGO_PATH,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME,
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="organizationCertificate != null" >
+        ORGANIZATION_CERTIFICATE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME,
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME,
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT,
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION,
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS,
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=CHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneticCode != null" >
+        #{phoneticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveStrokeCode != null" >
+        #{fiveStrokeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customizeCode != null" >
+        #{customizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="shrotName != null" >
+        #{shrotName,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCertificate != null" >
+        #{organizationCertificate,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.OrgOrgnization" >
+    update org_orgnization
+    <set >
+      <if test="businessId != null" >
+        BUSINESS_ID = #{businessId,jdbcType=CHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneticCode != null" >
+        PHONETIC_CODE = #{phoneticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveStrokeCode != null" >
+        FIVE_STROKE_CODE = #{fiveStrokeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customizeCode != null" >
+        CUSTOMIZE_CODE = #{customizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        EN_NAME = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="shrotName != null" >
+        SHROT_NAME = #{shrotName,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        LOGO_PATH = #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCertificate != null" >
+        ORGANIZATION_CERTIFICATE = #{organizationCertificate,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.OrgOrgnization" >
+    update org_orgnization
+    set BUSINESS_ID = #{businessId,jdbcType=CHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      PHONETIC_CODE = #{phoneticCode,jdbcType=VARCHAR},
+      FIVE_STROKE_CODE = #{fiveStrokeCode,jdbcType=VARCHAR},
+      CUSTOMIZE_CODE = #{customizeCode,jdbcType=VARCHAR},
+      EN_NAME = #{enName,jdbcType=VARCHAR},
+      SHROT_NAME = #{shrotName,jdbcType=VARCHAR},
+      LOGO_PATH = #{logoPath,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      ORGANIZATION_CERTIFICATE = #{organizationCertificate,jdbcType=CHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATED_BY = #{createdBy,jdbcType=CHAR},
+      CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="find" resultType="com.anxhit.mwm.model.OrgOrgnization">
+    select * from org_orgnization
+  </select>
+</mapper>

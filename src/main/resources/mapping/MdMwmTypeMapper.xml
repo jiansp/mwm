@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MdMwmTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MdMwmType" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MEMO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COLOR" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ICON1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ICON2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PHONETIC_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FIVE_STROKE_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOMIZE_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DATA_VERSION" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="DELETED_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DELETED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, MEMO, COLOR, ICON1, ICON2, PHONETIC_CODE, FIVE_STROKE_CODE, CUSTOMIZE_CODE, 
+    CREATED_BY, CREATED_BY_NAME, CREATED_AT, UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+    DATA_VERSION, DELETED_STATUS, DELETED_AT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from md_mwm_type
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from md_mwm_type
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MdMwmType" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into md_mwm_type (ID, CODE, NAME, MEMO, 
+      COLOR, ICON1, ICON2, PHONETIC_CODE, 
+      FIVE_STROKE_CODE, CUSTOMIZE_CODE, CREATED_BY, 
+      CREATED_BY_NAME, CREATED_AT, UPDATED_BY, 
+      UPDATED_BY_NAME, UPDATED_AT, DATA_VERSION, 
+      DELETED_STATUS, DELETED_AT)
+    values (#{id,jdbcType=CHAR}, #{code,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{color,jdbcType=CHAR}, #{icon1,jdbcType=VARCHAR}, #{icon2,jdbcType=VARCHAR}, #{phoneticCode,jdbcType=VARCHAR}, 
+      #{fiveStrokeCode,jdbcType=VARCHAR}, #{customizeCode,jdbcType=VARCHAR}, #{createdBy,jdbcType=CHAR}, 
+      #{createdByName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=CHAR}, 
+      #{updatedByName,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, #{dataVersion,jdbcType=DECIMAL}, 
+      #{deletedStatus,jdbcType=CHAR}, #{deletedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MdMwmType" >
+    insert into md_mwm_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="color != null" >
+        COLOR,
+      </if>
+      <if test="icon1 != null" >
+        ICON1,
+      </if>
+      <if test="icon2 != null" >
+        ICON2,
+      </if>
+      <if test="phoneticCode != null" >
+        PHONETIC_CODE,
+      </if>
+      <if test="fiveStrokeCode != null" >
+        FIVE_STROKE_CODE,
+      </if>
+      <if test="customizeCode != null" >
+        CUSTOMIZE_CODE,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME,
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME,
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT,
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION,
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS,
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=CHAR},
+      </if>
+      <if test="icon1 != null" >
+        #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneticCode != null" >
+        #{phoneticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveStrokeCode != null" >
+        #{fiveStrokeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customizeCode != null" >
+        #{customizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MdMwmType" >
+    update md_mwm_type
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        COLOR = #{color,jdbcType=CHAR},
+      </if>
+      <if test="icon1 != null" >
+        ICON1 = #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        ICON2 = #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneticCode != null" >
+        PHONETIC_CODE = #{phoneticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveStrokeCode != null" >
+        FIVE_STROKE_CODE = #{fiveStrokeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customizeCode != null" >
+        CUSTOMIZE_CODE = #{customizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MdMwmType" >
+    update md_mwm_type
+    set CODE = #{code,jdbcType=CHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      COLOR = #{color,jdbcType=CHAR},
+      ICON1 = #{icon1,jdbcType=VARCHAR},
+      ICON2 = #{icon2,jdbcType=VARCHAR},
+      PHONETIC_CODE = #{phoneticCode,jdbcType=VARCHAR},
+      FIVE_STROKE_CODE = #{fiveStrokeCode,jdbcType=VARCHAR},
+      CUSTOMIZE_CODE = #{customizeCode,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=CHAR},
+      CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="find" resultType="com.anxhit.mwm.model.MdMwmType">
+    select * from md_mwm_type
+  </select>
+</mapper>

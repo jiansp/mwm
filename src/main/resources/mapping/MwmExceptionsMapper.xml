@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmExceptionsMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmExceptions" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="BAG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="EXCEPTION_AT" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="EXCEPTION_TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="EXCEPTION_DESC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EXCEPTION_VOICE_PATH" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RECORD_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="RECORD_USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONFIRM_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CONFIRM_USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="AUDIT_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="AUDIT_USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RECORD_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CONFIRM_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DATA_VERSION" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="DELETED_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DELETED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, ORG_CODE, HOSPITAL_ID, HOSPITAL_CODE, BAG_ID, EXCEPTION_AT, EXCEPTION_TYPE, 
+    EXCEPTION_DESC, EXCEPTION_VOICE_PATH, RECORD_USER_ID, RECORD_USER_NAME, CONFIRM_USER_ID, 
+    CONFIRM_USER_NAME, AUDIT_USER_ID, AUDIT_USER_NAME, RECORD_TIME, CONFIRM_TIME, STATUS, 
+    CREATED_BY, CREATED_BY_NAME, CREATED_AT, UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+    DATA_VERSION, DELETED_STATUS, DELETED_AT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_exceptions
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_exceptions
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmExceptions" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_exceptions (ID, ORG_ID, ORG_CODE, HOSPITAL_ID, 
+      HOSPITAL_CODE, BAG_ID, EXCEPTION_AT, 
+      EXCEPTION_TYPE, EXCEPTION_DESC, EXCEPTION_VOICE_PATH, 
+      RECORD_USER_ID, RECORD_USER_NAME, CONFIRM_USER_ID, 
+      CONFIRM_USER_NAME, AUDIT_USER_ID, AUDIT_USER_NAME, 
+      RECORD_TIME, CONFIRM_TIME, STATUS, 
+      CREATED_BY, CREATED_BY_NAME, CREATED_AT, 
+      UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+      DATA_VERSION, DELETED_STATUS, DELETED_AT
+      )
+    values (#{id,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{bagId,jdbcType=CHAR}, #{exceptionAt,jdbcType=CHAR}, 
+      #{exceptionType,jdbcType=CHAR}, #{exceptionDesc,jdbcType=VARCHAR}, #{exceptionVoicePath,jdbcType=VARCHAR}, 
+      #{recordUserId,jdbcType=CHAR}, #{recordUserName,jdbcType=VARCHAR}, #{confirmUserId,jdbcType=CHAR}, 
+      #{confirmUserName,jdbcType=VARCHAR}, #{auditUserId,jdbcType=CHAR}, #{auditUserName,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{createdBy,jdbcType=CHAR}, #{createdByName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=CHAR}, #{updatedByName,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{dataVersion,jdbcType=DECIMAL}, #{deletedStatus,jdbcType=CHAR}, #{deletedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmExceptions" >
+    insert into mwm_exceptions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="bagId != null" >
+        BAG_ID,
+      </if>
+      <if test="exceptionAt != null" >
+        EXCEPTION_AT,
+      </if>
+      <if test="exceptionType != null" >
+        EXCEPTION_TYPE,
+      </if>
+      <if test="exceptionDesc != null" >
+        EXCEPTION_DESC,
+      </if>
+      <if test="exceptionVoicePath != null" >
+        EXCEPTION_VOICE_PATH,
+      </if>
+      <if test="recordUserId != null" >
+        RECORD_USER_ID,
+      </if>
+      <if test="recordUserName != null" >
+        RECORD_USER_NAME,
+      </if>
+      <if test="confirmUserId != null" >
+        CONFIRM_USER_ID,
+      </if>
+      <if test="confirmUserName != null" >
+        CONFIRM_USER_NAME,
+      </if>
+      <if test="auditUserId != null" >
+        AUDIT_USER_ID,
+      </if>
+      <if test="auditUserName != null" >
+        AUDIT_USER_NAME,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME,
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME,
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT,
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION,
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS,
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="exceptionAt != null" >
+        #{exceptionAt,jdbcType=CHAR},
+      </if>
+      <if test="exceptionType != null" >
+        #{exceptionType,jdbcType=CHAR},
+      </if>
+      <if test="exceptionDesc != null" >
+        #{exceptionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionVoicePath != null" >
+        #{exceptionVoicePath,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUserId != null" >
+        #{recordUserId,jdbcType=CHAR},
+      </if>
+      <if test="recordUserName != null" >
+        #{recordUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmUserId != null" >
+        #{confirmUserId,jdbcType=CHAR},
+      </if>
+      <if test="confirmUserName != null" >
+        #{confirmUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUserId != null" >
+        #{auditUserId,jdbcType=CHAR},
+      </if>
+      <if test="auditUserName != null" >
+        #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmExceptions" >
+    update mwm_exceptions
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        BAG_ID = #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="exceptionAt != null" >
+        EXCEPTION_AT = #{exceptionAt,jdbcType=CHAR},
+      </if>
+      <if test="exceptionType != null" >
+        EXCEPTION_TYPE = #{exceptionType,jdbcType=CHAR},
+      </if>
+      <if test="exceptionDesc != null" >
+        EXCEPTION_DESC = #{exceptionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionVoicePath != null" >
+        EXCEPTION_VOICE_PATH = #{exceptionVoicePath,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUserId != null" >
+        RECORD_USER_ID = #{recordUserId,jdbcType=CHAR},
+      </if>
+      <if test="recordUserName != null" >
+        RECORD_USER_NAME = #{recordUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmUserId != null" >
+        CONFIRM_USER_ID = #{confirmUserId,jdbcType=CHAR},
+      </if>
+      <if test="confirmUserName != null" >
+        CONFIRM_USER_NAME = #{confirmUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUserId != null" >
+        AUDIT_USER_ID = #{auditUserId,jdbcType=CHAR},
+      </if>
+      <if test="auditUserName != null" >
+        AUDIT_USER_NAME = #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmExceptions" >
+    update mwm_exceptions
+    set ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      BAG_ID = #{bagId,jdbcType=CHAR},
+      EXCEPTION_AT = #{exceptionAt,jdbcType=CHAR},
+      EXCEPTION_TYPE = #{exceptionType,jdbcType=CHAR},
+      EXCEPTION_DESC = #{exceptionDesc,jdbcType=VARCHAR},
+      EXCEPTION_VOICE_PATH = #{exceptionVoicePath,jdbcType=VARCHAR},
+      RECORD_USER_ID = #{recordUserId,jdbcType=CHAR},
+      RECORD_USER_NAME = #{recordUserName,jdbcType=VARCHAR},
+      CONFIRM_USER_ID = #{confirmUserId,jdbcType=CHAR},
+      CONFIRM_USER_NAME = #{confirmUserName,jdbcType=VARCHAR},
+      AUDIT_USER_ID = #{auditUserId,jdbcType=CHAR},
+      AUDIT_USER_NAME = #{auditUserName,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATED_BY = #{createdBy,jdbcType=CHAR},
+      CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmWasteBagMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmWasteBag" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="WR_NAME" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TYPE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="LATEST_COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="LATEST_WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="QR_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RFID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="REVIEW_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="STOCK_IN_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="STOCK_OUT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="EXCEPTION_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DATA_VERSION" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="DELETED_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DELETED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, ORG_CODE, HOSPITAL_ID, HOSPITAL_CODE, WR_ID, WR_CODE, WR_NAME, TYPE_ID, 
+    TYPE_CODE, TYPE_NAME, COUNT, LATEST_COUNT, WEIGHT, LATEST_WEIGHT, QR_CODE, RFID, 
+    COLLECT_TIME, REVIEW_TIME, STOCK_IN_TIME, STOCK_OUT_TIME, STATUS, EXCEPTION_STATUS, 
+    CREATED_BY, CREATED_BY_NAME, CREATED_AT, UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+    DATA_VERSION, DELETED_STATUS, DELETED_AT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_waste_bag
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_waste_bag
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmWasteBag" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_waste_bag (ID, ORG_ID, ORG_CODE, HOSPITAL_ID, 
+      HOSPITAL_CODE, WR_ID, WR_CODE, 
+      WR_NAME, TYPE_ID, TYPE_CODE, TYPE_NAME, 
+      COUNT, LATEST_COUNT, WEIGHT, 
+      LATEST_WEIGHT, QR_CODE, RFID, 
+      COLLECT_TIME, REVIEW_TIME, STOCK_IN_TIME, 
+      STOCK_OUT_TIME, STATUS, EXCEPTION_STATUS, 
+      CREATED_BY, CREATED_BY_NAME, CREATED_AT, 
+      UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+      DATA_VERSION, DELETED_STATUS, DELETED_AT
+      )
+    values (#{id,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{wrId,jdbcType=CHAR}, #{wrCode,jdbcType=CHAR}, 
+      #{wrName,jdbcType=CHAR}, #{typeId,jdbcType=CHAR}, #{typeCode,jdbcType=CHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{latestCount,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, 
+      #{latestWeight,jdbcType=DECIMAL}, #{qrCode,jdbcType=VARCHAR}, #{rfid,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{reviewTime,jdbcType=TIMESTAMP}, #{stockInTime,jdbcType=TIMESTAMP}, 
+      #{stockOutTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{exceptionStatus,jdbcType=CHAR}, 
+      #{createdBy,jdbcType=CHAR}, #{createdByName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=CHAR}, #{updatedByName,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{dataVersion,jdbcType=DECIMAL}, #{deletedStatus,jdbcType=CHAR}, #{deletedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmWasteBag" >
+    insert into mwm_waste_bag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="wrId != null" >
+        WR_ID,
+      </if>
+      <if test="wrCode != null" >
+        WR_CODE,
+      </if>
+      <if test="wrName != null" >
+        WR_NAME,
+      </if>
+      <if test="typeId != null" >
+        TYPE_ID,
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE,
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="latestCount != null" >
+        LATEST_COUNT,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="latestWeight != null" >
+        LATEST_WEIGHT,
+      </if>
+      <if test="qrCode != null" >
+        QR_CODE,
+      </if>
+      <if test="rfid != null" >
+        RFID,
+      </if>
+      <if test="collectTime != null" >
+        COLLECT_TIME,
+      </if>
+      <if test="reviewTime != null" >
+        REVIEW_TIME,
+      </if>
+      <if test="stockInTime != null" >
+        STOCK_IN_TIME,
+      </if>
+      <if test="stockOutTime != null" >
+        STOCK_OUT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="exceptionStatus != null" >
+        EXCEPTION_STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME,
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME,
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT,
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION,
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS,
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="wrId != null" >
+        #{wrId,jdbcType=CHAR},
+      </if>
+      <if test="wrCode != null" >
+        #{wrCode,jdbcType=CHAR},
+      </if>
+      <if test="wrName != null" >
+        #{wrName,jdbcType=CHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=CHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="latestCount != null" >
+        #{latestCount,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="latestWeight != null" >
+        #{latestWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="qrCode != null" >
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rfid != null" >
+        #{rfid,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTime != null" >
+        #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewTime != null" >
+        #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockInTime != null" >
+        #{stockInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockOutTime != null" >
+        #{stockOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="exceptionStatus != null" >
+        #{exceptionStatus,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmWasteBag" >
+    update mwm_waste_bag
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="wrId != null" >
+        WR_ID = #{wrId,jdbcType=CHAR},
+      </if>
+      <if test="wrCode != null" >
+        WR_CODE = #{wrCode,jdbcType=CHAR},
+      </if>
+      <if test="wrName != null" >
+        WR_NAME = #{wrName,jdbcType=CHAR},
+      </if>
+      <if test="typeId != null" >
+        TYPE_ID = #{typeId,jdbcType=CHAR},
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        COUNT = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="latestCount != null" >
+        LATEST_COUNT = #{latestCount,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="latestWeight != null" >
+        LATEST_WEIGHT = #{latestWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="qrCode != null" >
+        QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rfid != null" >
+        RFID = #{rfid,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTime != null" >
+        COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewTime != null" >
+        REVIEW_TIME = #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockInTime != null" >
+        STOCK_IN_TIME = #{stockInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockOutTime != null" >
+        STOCK_OUT_TIME = #{stockOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="exceptionStatus != null" >
+        EXCEPTION_STATUS = #{exceptionStatus,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmWasteBag" >
+    update mwm_waste_bag
+    set ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      WR_ID = #{wrId,jdbcType=CHAR},
+      WR_CODE = #{wrCode,jdbcType=CHAR},
+      WR_NAME = #{wrName,jdbcType=CHAR},
+      TYPE_ID = #{typeId,jdbcType=CHAR},
+      TYPE_CODE = #{typeCode,jdbcType=CHAR},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      COUNT = #{count,jdbcType=INTEGER},
+      LATEST_COUNT = #{latestCount,jdbcType=INTEGER},
+      WEIGHT = #{weight,jdbcType=DECIMAL},
+      LATEST_WEIGHT = #{latestWeight,jdbcType=DECIMAL},
+      QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      RFID = #{rfid,jdbcType=VARCHAR},
+      COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      REVIEW_TIME = #{reviewTime,jdbcType=TIMESTAMP},
+      STOCK_IN_TIME = #{stockInTime,jdbcType=TIMESTAMP},
+      STOCK_OUT_TIME = #{stockOutTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      EXCEPTION_STATUS = #{exceptionStatus,jdbcType=CHAR},
+      CREATED_BY = #{createdBy,jdbcType=CHAR},
+      CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="find" resultType="com.anxhit.mwm.model.MwmWasteBag">
+    select * from mwm_waste_bag
+  </select>
+</mapper>

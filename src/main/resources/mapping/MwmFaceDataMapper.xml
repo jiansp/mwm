@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmFaceDataMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmFaceData" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="USERNAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.anxhit.mwm.model.MwmFaceDataWithBLOBs" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="USERNAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEETA_IMAGE_DATA" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="SEETA_POINTS" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USERNAME
+  </sql>
+  <sql id="Blob_Column_List" >
+    SEETA_IMAGE_DATA, SEETA_POINTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mwm_face_data
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_face_data
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmFaceDataWithBLOBs" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_face_data (ID, USERNAME, SEETA_IMAGE_DATA, 
+      SEETA_POINTS)
+    values (#{id,jdbcType=CHAR}, #{username,jdbcType=VARCHAR}, #{seetaImageData,jdbcType=LONGVARCHAR}, 
+      #{seetaPoints,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmFaceDataWithBLOBs" >
+    insert into mwm_face_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="seetaImageData != null" >
+        SEETA_IMAGE_DATA,
+      </if>
+      <if test="seetaPoints != null" >
+        SEETA_POINTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="seetaImageData != null" >
+        #{seetaImageData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="seetaPoints != null" >
+        #{seetaPoints,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmFaceDataWithBLOBs" >
+    update mwm_face_data
+    <set >
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="seetaImageData != null" >
+        SEETA_IMAGE_DATA = #{seetaImageData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="seetaPoints != null" >
+        SEETA_POINTS = #{seetaPoints,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.anxhit.mwm.model.MwmFaceDataWithBLOBs" >
+    update mwm_face_data
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      SEETA_IMAGE_DATA = #{seetaImageData,jdbcType=LONGVARCHAR},
+      SEETA_POINTS = #{seetaPoints,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmFaceData" >
+    update mwm_face_data
+    set USERNAME = #{username,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="find" resultType="java.util.Map">
+    select * from mwm_face_data
+  </select>
+</mapper>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.AuthAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.AuthAccount" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_BY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DATA_VERSION" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="DELETED_STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DELETED_AT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, PASSWORD, TYPE, USER_ID, STATUS, HOSPITAL_ID, HOSPITAL_CODE, ORG_ID, 
+    ORG_CODE, CREATED_BY, CREATED_BY_NAME, CREATED_AT, UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+    DATA_VERSION, DELETED_STATUS, DELETED_AT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_account
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_account
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.AuthAccount" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into auth_account (ID, USER_NAME, PASSWORD, 
+      TYPE, USER_ID, STATUS, HOSPITAL_ID, 
+      HOSPITAL_CODE, ORG_ID, ORG_CODE, 
+      CREATED_BY, CREATED_BY_NAME, CREATED_AT, 
+      UPDATED_BY, UPDATED_BY_NAME, UPDATED_AT, 
+      DATA_VERSION, DELETED_STATUS, DELETED_AT
+      )
+    values (#{id,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, 
+      #{createdBy,jdbcType=CHAR}, #{createdByName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=CHAR}, #{updatedByName,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{dataVersion,jdbcType=DECIMAL}, #{deletedStatus,jdbcType=CHAR}, #{deletedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.AuthAccount" >
+    insert into auth_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME,
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME,
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT,
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION,
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS,
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.AuthAccount" >
+    update auth_account
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=CHAR},
+      </if>
+      <if test="createdByName != null" >
+        CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      </if>
+      <if test="updatedByName != null" >
+        UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null" >
+        DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="deletedStatus != null" >
+        DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      </if>
+      <if test="deletedAt != null" >
+        DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.AuthAccount" >
+    update auth_account
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      USER_ID = #{userId,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      CREATED_BY = #{createdBy,jdbcType=CHAR},
+      CREATED_BY_NAME = #{createdByName,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=CHAR},
+      UPDATED_BY_NAME = #{updatedByName,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      DATA_VERSION = #{dataVersion,jdbcType=DECIMAL},
+      DELETED_STATUS = #{deletedStatus,jdbcType=CHAR},
+      DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="find" resultType="com.anxhit.mwm.model.AuthAccount">
+    select * from auth_account
+  </select>
+</mapper>

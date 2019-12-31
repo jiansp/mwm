@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmCollect" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TROLLEY_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TROLLEY_NO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="START_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="END_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="COLLECT_MAN_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="COLLECT_MAN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, ORG_CODE, HOSPITAL_ID, HOSPITAL_CODE, TROLLEY_ID, TROLLEY_NO, START_TIME, 
+    END_TIME, COLLECT_MAN_ID, COLLECT_MAN, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_collect
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_collect
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmCollect" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_collect (ID, ORG_ID, ORG_CODE, HOSPITAL_ID, 
+      HOSPITAL_CODE, TROLLEY_ID, TROLLEY_NO, 
+      START_TIME, END_TIME, COLLECT_MAN_ID, 
+      COLLECT_MAN, STATUS)
+    values (#{id,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{trolleyId,jdbcType=CHAR}, #{trolleyNo,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{collectManId,jdbcType=CHAR}, 
+      #{collectMan,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmCollect" >
+    insert into mwm_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="trolleyId != null" >
+        TROLLEY_ID,
+      </if>
+      <if test="trolleyNo != null" >
+        TROLLEY_NO,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="collectManId != null" >
+        COLLECT_MAN_ID,
+      </if>
+      <if test="collectMan != null" >
+        COLLECT_MAN,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="trolleyId != null" >
+        #{trolleyId,jdbcType=CHAR},
+      </if>
+      <if test="trolleyNo != null" >
+        #{trolleyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectManId != null" >
+        #{collectManId,jdbcType=CHAR},
+      </if>
+      <if test="collectMan != null" >
+        #{collectMan,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmCollect" >
+    update mwm_collect
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="trolleyId != null" >
+        TROLLEY_ID = #{trolleyId,jdbcType=CHAR},
+      </if>
+      <if test="trolleyNo != null" >
+        TROLLEY_NO = #{trolleyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectManId != null" >
+        COLLECT_MAN_ID = #{collectManId,jdbcType=CHAR},
+      </if>
+      <if test="collectMan != null" >
+        COLLECT_MAN = #{collectMan,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmCollect" >
+    update mwm_collect
+    set ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      TROLLEY_ID = #{trolleyId,jdbcType=CHAR},
+      TROLLEY_NO = #{trolleyNo,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      COLLECT_MAN_ID = #{collectManId,jdbcType=CHAR},
+      COLLECT_MAN = #{collectMan,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmReview" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ORG_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="HOSPITAL_CODE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TOTAL_WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="TOTAL_COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TOTAL_BAG" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="REVIEW_TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="REVIEW_USER_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="REVIEW_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TROLLEY_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="TROLLEY_NO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COLLECT_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="REVIEW_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, ORG_CODE, HOSPITAL_ID, HOSPITAL_CODE, TOTAL_WEIGHT, TOTAL_COUNT, TOTAL_BAG, 
+    REVIEW_TYPE, REVIEW_USER_ID, REVIEW_USER, TROLLEY_ID, TROLLEY_NO, COLLECT_ID, REVIEW_TIME, 
+    STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_review
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_review
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmReview" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_review (ID, ORG_ID, ORG_CODE, HOSPITAL_ID, 
+      HOSPITAL_CODE, TOTAL_WEIGHT, TOTAL_COUNT, 
+      TOTAL_BAG, REVIEW_TYPE, REVIEW_USER_ID, 
+      REVIEW_USER, TROLLEY_ID, TROLLEY_NO, 
+      COLLECT_ID, REVIEW_TIME, STATUS
+      )
+    values (#{id,jdbcType=CHAR}, #{orgId,jdbcType=CHAR}, #{orgCode,jdbcType=CHAR}, #{hospitalId,jdbcType=CHAR}, 
+      #{hospitalCode,jdbcType=CHAR}, #{totalWeight,jdbcType=DECIMAL}, #{totalCount,jdbcType=INTEGER}, 
+      #{totalBag,jdbcType=INTEGER}, #{reviewType,jdbcType=CHAR}, #{reviewUserId,jdbcType=CHAR}, 
+      #{reviewUser,jdbcType=VARCHAR}, #{trolleyId,jdbcType=CHAR}, #{trolleyNo,jdbcType=VARCHAR}, 
+      #{collectId,jdbcType=CHAR}, #{reviewTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmReview" >
+    insert into mwm_review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID,
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE,
+      </if>
+      <if test="totalWeight != null" >
+        TOTAL_WEIGHT,
+      </if>
+      <if test="totalCount != null" >
+        TOTAL_COUNT,
+      </if>
+      <if test="totalBag != null" >
+        TOTAL_BAG,
+      </if>
+      <if test="reviewType != null" >
+        REVIEW_TYPE,
+      </if>
+      <if test="reviewUserId != null" >
+        REVIEW_USER_ID,
+      </if>
+      <if test="reviewUser != null" >
+        REVIEW_USER,
+      </if>
+      <if test="trolleyId != null" >
+        TROLLEY_ID,
+      </if>
+      <if test="trolleyNo != null" >
+        TROLLEY_NO,
+      </if>
+      <if test="collectId != null" >
+        COLLECT_ID,
+      </if>
+      <if test="reviewTime != null" >
+        REVIEW_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="totalWeight != null" >
+        #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBag != null" >
+        #{totalBag,jdbcType=INTEGER},
+      </if>
+      <if test="reviewType != null" >
+        #{reviewType,jdbcType=CHAR},
+      </if>
+      <if test="reviewUserId != null" >
+        #{reviewUserId,jdbcType=CHAR},
+      </if>
+      <if test="reviewUser != null" >
+        #{reviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trolleyId != null" >
+        #{trolleyId,jdbcType=CHAR},
+      </if>
+      <if test="trolleyNo != null" >
+        #{trolleyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectId != null" >
+        #{collectId,jdbcType=CHAR},
+      </if>
+      <if test="reviewTime != null" >
+        #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmReview" >
+    update mwm_review
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="hospitalId != null" >
+        HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      </if>
+      <if test="hospitalCode != null" >
+        HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      </if>
+      <if test="totalWeight != null" >
+        TOTAL_WEIGHT = #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCount != null" >
+        TOTAL_COUNT = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBag != null" >
+        TOTAL_BAG = #{totalBag,jdbcType=INTEGER},
+      </if>
+      <if test="reviewType != null" >
+        REVIEW_TYPE = #{reviewType,jdbcType=CHAR},
+      </if>
+      <if test="reviewUserId != null" >
+        REVIEW_USER_ID = #{reviewUserId,jdbcType=CHAR},
+      </if>
+      <if test="reviewUser != null" >
+        REVIEW_USER = #{reviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trolleyId != null" >
+        TROLLEY_ID = #{trolleyId,jdbcType=CHAR},
+      </if>
+      <if test="trolleyNo != null" >
+        TROLLEY_NO = #{trolleyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectId != null" >
+        COLLECT_ID = #{collectId,jdbcType=CHAR},
+      </if>
+      <if test="reviewTime != null" >
+        REVIEW_TIME = #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmReview" >
+    update mwm_review
+    set ORG_ID = #{orgId,jdbcType=CHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      HOSPITAL_ID = #{hospitalId,jdbcType=CHAR},
+      HOSPITAL_CODE = #{hospitalCode,jdbcType=CHAR},
+      TOTAL_WEIGHT = #{totalWeight,jdbcType=DECIMAL},
+      TOTAL_COUNT = #{totalCount,jdbcType=INTEGER},
+      TOTAL_BAG = #{totalBag,jdbcType=INTEGER},
+      REVIEW_TYPE = #{reviewType,jdbcType=CHAR},
+      REVIEW_USER_ID = #{reviewUserId,jdbcType=CHAR},
+      REVIEW_USER = #{reviewUser,jdbcType=VARCHAR},
+      TROLLEY_ID = #{trolleyId,jdbcType=CHAR},
+      TROLLEY_NO = #{trolleyNo,jdbcType=VARCHAR},
+      COLLECT_ID = #{collectId,jdbcType=CHAR},
+      REVIEW_TIME = #{reviewTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

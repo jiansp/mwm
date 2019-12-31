@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmWasteRoomDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmWasteRoomDept" >
+    <constructor >
+      <arg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="MWM_ID" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmWasteRoomDept" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_waste_room_dept (ID, MWM_ID)
+    values (#{id,jdbcType=CHAR}, #{mwmId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmWasteRoomDept" >
+    insert into mwm_waste_room_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="mwmId != null" >
+        MWM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="mwmId != null" >
+        #{mwmId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

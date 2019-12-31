@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anxhit.mwm.mapper.MwmReviewDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.anxhit.mwm.model.MwmReviewDetail" >
+    <constructor >
+      <idArg column="ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="REVIEW_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="BAG_ID" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COLLECT_WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="REVIEW_WEIGHT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="STATUS" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REVIEW_ID, BAG_ID, COUNT, COLLECT_WEIGHT, REVIEW_WEIGHT, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mwm_review_detail
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mwm_review_detail
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.anxhit.mwm.model.MwmReviewDetail" >
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      SELECT REPLACE(UUID(),'-','')
+    </selectKey>
+    insert into mwm_review_detail (ID, REVIEW_ID, BAG_ID, COUNT, 
+      COLLECT_WEIGHT, REVIEW_WEIGHT, STATUS
+      )
+    values (#{id,jdbcType=CHAR}, #{reviewId,jdbcType=CHAR}, #{bagId,jdbcType=CHAR}, #{count,jdbcType=INTEGER}, 
+      #{collectWeight,jdbcType=DECIMAL}, #{reviewWeight,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anxhit.mwm.model.MwmReviewDetail" >
+    insert into mwm_review_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="reviewId != null" >
+        REVIEW_ID,
+      </if>
+      <if test="bagId != null" >
+        BAG_ID,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="collectWeight != null" >
+        COLLECT_WEIGHT,
+      </if>
+      <if test="reviewWeight != null" >
+        REVIEW_WEIGHT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="reviewId != null" >
+        #{reviewId,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="collectWeight != null" >
+        #{collectWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewWeight != null" >
+        #{reviewWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anxhit.mwm.model.MwmReviewDetail" >
+    update mwm_review_detail
+    <set >
+      <if test="reviewId != null" >
+        REVIEW_ID = #{reviewId,jdbcType=CHAR},
+      </if>
+      <if test="bagId != null" >
+        BAG_ID = #{bagId,jdbcType=CHAR},
+      </if>
+      <if test="count != null" >
+        COUNT = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="collectWeight != null" >
+        COLLECT_WEIGHT = #{collectWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewWeight != null" >
+        REVIEW_WEIGHT = #{reviewWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anxhit.mwm.model.MwmReviewDetail" >
+    update mwm_review_detail
+    set REVIEW_ID = #{reviewId,jdbcType=CHAR},
+      BAG_ID = #{bagId,jdbcType=CHAR},
+      COUNT = #{count,jdbcType=INTEGER},
+      COLLECT_WEIGHT = #{collectWeight,jdbcType=DECIMAL},
+      REVIEW_WEIGHT = #{reviewWeight,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
