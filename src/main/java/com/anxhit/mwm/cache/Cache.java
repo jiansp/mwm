@@ -1,5 +1,7 @@
 package com.anxhit.mwm.cache;
 
+import com.anxhit.mwm.model.MdMwmType;
+import com.anxhit.mwm.model.MwmTrolley;
 import com.anxhit.mwm.model.OrgHospital;
 import com.anxhit.mwm.model.OrgOrgnization;
 
@@ -14,4 +16,6 @@ public class Cache {
 
     public static OrgOrgnization ORG;
     public static OrgHospital HOSPITAL;
+    public static MdMwmType MWM_TYPE;
+    public static MwmTrolley TROLLEY;
 }

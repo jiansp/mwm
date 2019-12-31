@@ -14,7 +14,7 @@ public class TrolleyService {
     @Autowired
     private MwmTrolleyMapper trolleyMapper;
 
-    public void save(){
+    public MwmTrolley save(){
         MwmTrolley trolley = new MwmTrolley();
         trolley.setOrgId(Cache.ORG.getId());
         trolley.setOrgCode(Cache.ORG.getCode());
@@ -22,5 +22,7 @@ public class TrolleyService {
         trolley.setHospitalCode(Cache.HOSPITAL.getCode());
         trolley.setTrolleyNo("T"+new Random().nextInt(100));
         this.trolleyMapper.insert(trolley);
+        Cache.TROLLEY = trolley;
+        return trolley;
     }
 }

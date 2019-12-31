@@ -55,6 +55,7 @@ public class TestService {
 
         Cache.ORG = (OrgOrgnization) Cache.BASE_CACHE.get("org").get(0);
         Cache.HOSPITAL = (OrgHospital) Cache.BASE_CACHE.get("hospital").get(0);
+        Cache.MWM_TYPE = (MdMwmType) Cache.BASE_CACHE.get("type").get(0);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
