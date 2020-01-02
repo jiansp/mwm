@@ -1,9 +1,6 @@
 package com.anxhit.mwm.cache;
 
-import com.anxhit.mwm.model.MdMwmType;
-import com.anxhit.mwm.model.MwmTrolley;
-import com.anxhit.mwm.model.OrgHospital;
-import com.anxhit.mwm.model.OrgOrgnization;
+import com.anxhit.mwm.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +13,7 @@ public class Cache {
 
     public static OrgOrgnization ORG;
     public static OrgHospital HOSPITAL;
+    public static MwmWasteRoom WASTE_ROOM;
     public static MdMwmType MWM_TYPE;
     public static MwmTrolley TROLLEY;
 }

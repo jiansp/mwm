@@ -1,6 +1,7 @@
 package com.anxhit.mwm.services;
 
 import com.anxhit.mwm.cache.Cache;
+import com.anxhit.mwm.mapper.MwmCollectDetailMapper;
 import com.anxhit.mwm.mapper.MwmCollectMapper;
 import com.anxhit.mwm.mapper.MwmTrolleyMapper;
 import com.anxhit.mwm.mapper.MwmWasteBagMapper;
@@ -17,6 +18,8 @@ public class CollectService {
     private MwmCollectMapper collectMapper;
     @Autowired
     private MwmWasteBagMapper wasteBagMapper;
+    @Autowired
+    private MwmCollectDetailMapper collectDetailMapper;
 
     public Map save(){
         Map res = new HashMap();
@@ -40,6 +43,9 @@ public class CollectService {
         wasteBag.setOrgCode(Cache.ORG.getCode());
         wasteBag.setHospitalId(Cache.HOSPITAL.getId());
         wasteBag.setHospitalCode(Cache.HOSPITAL.getCode());
+        wasteBag.setWrId(Cache.WASTE_ROOM.getId());
+        wasteBag.setWrCode(Cache.WASTE_ROOM.getCode());
+        wasteBag.setWrName(Cache.WASTE_ROOM.getName());
         wasteBag.setTypeId(Cache.MWM_TYPE.getId());
         wasteBag.setTypeCode(Cache.MWM_TYPE.getCode());
         wasteBag.setTypeName(Cache.MWM_TYPE.getName());
@@ -50,8 +56,19 @@ public class CollectService {
         res.put("wasteBag", wasteBag);
 
         MwmCollectDetail collectDetail = new MwmCollectDetail();
-
-
+        collectDetail.setCollectId(collect.getId());
+        collectDetail.setWrId(Cache.WASTE_ROOM.getId());
+        collectDetail.setWrCode(Cache.WASTE_ROOM.getCode());
+        collectDetail.setWrName(Cache.WASTE_ROOM.getName());
+        collectDetail.setBagId(wasteBag.getId());
+        collectDetail.setTypeId(Cache.MWM_TYPE.getId());
+        collectDetail.setTypeCode(Cache.MWM_TYPE.getCode());
+        collectDetail.setTypeName(Cache.MWM_TYPE.getName());
+        collectDetail.setWeight(wasteBag.getWeight());
+        collectDetail.setQrCode(wasteBag.getQrCode());
+        collectDetail.setCollectTime(now);
+        this.collectDetailMapper.insert(collectDetail);
+        res.put("collectDetail",collectDetail);
         return res;
     }
 }
