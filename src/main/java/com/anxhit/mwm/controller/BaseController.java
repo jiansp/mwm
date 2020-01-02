@@ -16,6 +16,17 @@ public class BaseController {
     @Autowired
     private BaseService baseService;
 
+/*    1初始化数据 localhost:8089/base/save
+2清除数据 localhost:8089/base/deleteAll
+3缓存数据 localhost:8089/base/cacheData
+4清除缓存 localhost:8089/base/clearCache
+5创建污物车 localhost:8089/trolley/save
+6收集 localhost:8089/collect/save
+7核交 localhost:8089/review/save
+8入库 localhost:8089/stockIn/save
+9出库 localhost:8089/stockOut/save
+10异常核交 localhost:8089/review/exceptionSave
+11处理异常 localhost:8089/exception/save*/
     @RequestMapping("save")
     @ResponseBody
     public boolean save(){

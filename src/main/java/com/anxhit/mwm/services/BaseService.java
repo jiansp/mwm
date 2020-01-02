@@ -134,7 +134,7 @@ public class BaseService {
         }
 
         MwmTemporaryStorage temporaryStorage = new MwmTemporaryStorage();
-        temporaryStorage.setCode("temporaryStorage"+new Random().nextInt(100));
+        temporaryStorage.setCode("ts"+new Random().nextInt(100));
         temporaryStorage.setName("暂存处");
         temporaryStorage.setOrgId(orgOrgnization.getId());
         temporaryStorage.setOrgCode(orgOrgnization.getCode());
