@@ -19,4 +19,5 @@ public class Cache {
     public static MwmWasteBag WASTE_BAG;
     public static MwmCollect COLLECT;
     public static MwmTsPoint TS_POINT;
+    public static MwmExceptions EXCEPTIONS;
 }

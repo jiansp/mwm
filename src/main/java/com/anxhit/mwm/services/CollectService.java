@@ -56,6 +56,7 @@ public class CollectService {
         wasteBag.setQrCode("1934874589"+new Random().nextInt(100));
         wasteBag.setCollectTime(now);
         wasteBag.setStatus("2");
+        wasteBag.setExceptionStatus("9");
         this.wasteBagMapper.insert(wasteBag);
         Cache.WASTE_BAG = wasteBag;
         res.put("wasteBag", wasteBag);

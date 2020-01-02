@@ -176,5 +176,7 @@ public class BaseService {
         Cache.COLLECT = null;
         Cache.TROLLEY = null;
         Cache.MWM_TYPE =null;
+        Cache.TS_POINT =null;
+        Cache.EXCEPTIONS =null;
     }
 }
