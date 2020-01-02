@@ -1,23 +1,22 @@
 package com.anxhit.mwm.controller;
 
-import com.anxhit.mwm.model.MwmTrolley;
-import com.anxhit.mwm.services.TrolleyService;
+import com.anxhit.mwm.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 @Controller
-@RequestMapping("trolley")
-public class TrolleyController {
+@RequestMapping("review")
+public class ReviewController {
     @Autowired
-    private TrolleyService trolleyService;
+    private ReviewService reviewService;
 
     @RequestMapping("save")
     @ResponseBody
-    public MwmTrolley save(){
-        MwmTrolley trolley = this.trolleyService.save();
-        return trolley;
+    public Map save(){
+        return this.reviewService.save();
     }
-    
 }

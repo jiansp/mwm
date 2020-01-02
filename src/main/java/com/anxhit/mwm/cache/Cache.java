@@ -16,4 +16,7 @@ public class Cache {
     public static MwmWasteRoom WASTE_ROOM;
     public static MdMwmType MWM_TYPE;
     public static MwmTrolley TROLLEY;
+    public static MwmWasteBag WASTE_BAG;
+    public static MwmCollect COLLECT;
+    public static MwmTsPoint TS_POINT;
 }

@@ -2,6 +2,8 @@ package com.anxhit.mwm.mapper;
 
 import com.anxhit.mwm.model.MwmTsPoint;
 
+import java.util.List;
+
 public interface MwmTsPointMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,6 @@ public interface MwmTsPointMapper {
     int updateByPrimaryKeySelective(MwmTsPoint record);
 
     int updateByPrimaryKey(MwmTsPoint record);
+
+    List find();
 }

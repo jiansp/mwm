@@ -8,6 +8,8 @@ import com.anxhit.mwm.mapper.MwmWasteBagMapper;
 import com.anxhit.mwm.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -20,7 +22,7 @@ public class CollectService {
     private MwmWasteBagMapper wasteBagMapper;
     @Autowired
     private MwmCollectDetailMapper collectDetailMapper;
-
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Map save(){
         Map res = new HashMap();
         Date now = new Date();
@@ -36,6 +38,7 @@ public class CollectService {
         collect.setTrolleyId(Cache.TROLLEY.getId());
         collect.setTrolleyNo(Cache.TROLLEY.getTrolleyNo());
         this.collectMapper.insert(collect);
+        Cache.COLLECT = collect;
         res.put("collect",collect);
 
         MwmWasteBag wasteBag = new MwmWasteBag();
@@ -52,7 +55,9 @@ public class CollectService {
         wasteBag.setWeight(new BigDecimal("18.23"));
         wasteBag.setQrCode("1934874589"+new Random().nextInt(100));
         wasteBag.setCollectTime(now);
+        wasteBag.setStatus("2");
         this.wasteBagMapper.insert(wasteBag);
+        Cache.WASTE_BAG = wasteBag;
         res.put("wasteBag", wasteBag);
 
         MwmCollectDetail collectDetail = new MwmCollectDetail();

@@ -2,6 +2,8 @@ package com.anxhit.mwm.mapper;
 
 import com.anxhit.mwm.model.MwmTemporaryStorage;
 
+import java.util.List;
+
 public interface MwmTemporaryStorageMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,6 @@ public interface MwmTemporaryStorageMapper {
     int updateByPrimaryKeySelective(MwmTemporaryStorage record);
 
     int updateByPrimaryKey(MwmTemporaryStorage record);
+
+    List find();
 }

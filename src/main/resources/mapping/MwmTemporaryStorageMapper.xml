@@ -237,4 +237,7 @@
       DELETED_AT = #{deletedAt,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=CHAR}
   </update>
+  <select id="find" resultType="com.anxhit.mwm.model.MwmTemporaryStorage">
+    select * from mwm_temporary_storage
+  </select>
 </mapper>
