@@ -236,4 +236,7 @@
       COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=CHAR}
   </update>
+  <select id="find" resultType="com.anxhit.mwm.model.MwmCollectDetail">
+    select * from mwm_collect_detail
+  </select>
 </mapper>

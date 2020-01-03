@@ -31,6 +31,15 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+#日志配置
+logging:
+  #配置日志文件路径
+  level:
+    com.anxhit: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: debug
+  file:
+    name: mwm.log
+
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.anxhit.mwmdemo.mwmdemo.model

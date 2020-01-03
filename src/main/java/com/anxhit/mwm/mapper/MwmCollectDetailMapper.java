@@ -2,6 +2,8 @@ package com.anxhit.mwm.mapper;
 
 import com.anxhit.mwm.model.MwmCollectDetail;
 
+import java.util.List;
+
 public interface MwmCollectDetailMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,6 @@ public interface MwmCollectDetailMapper {
     int updateByPrimaryKeySelective(MwmCollectDetail record);
 
     int updateByPrimaryKey(MwmCollectDetail record);
+
+    List find();
 }

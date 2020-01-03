@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Cache {
     public static Map<String, List> BASE_CACHE = new HashMap<>();
+    public static Map<String, List> BAG_CACHE = new HashMap<>();
     public static List FACE_CACHE = new ArrayList();
 
     public static OrgOrgnization ORG;

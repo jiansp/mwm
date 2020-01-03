@@ -4,12 +4,15 @@ import com.anxhit.mwm.cache.Cache;
 import com.anxhit.mwm.services.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("base")
 public class BaseController {
@@ -30,14 +33,29 @@ public class BaseController {
     @RequestMapping("save")
     @ResponseBody
     public boolean save(){
+        log.info("初始化数据");
          this.baseService.save();
          return true;
+    }
+
+    @RequestMapping("saveBag")
+    @ResponseBody
+    public boolean saveBag(){
+        log.info("初始化数据saveBag");
+        this.baseService.saveBag();
+        return true;
     }
 
     @RequestMapping("getBase")
     @ResponseBody
     public Map getBase(){
         return Cache.BASE_CACHE;
+    }
+
+    @RequestMapping("getBag")
+    @ResponseBody
+    public Map getBag(){
+        return Cache.BAG_CACHE;
     }
 
     @RequestMapping("getFace")
@@ -65,6 +83,13 @@ public class BaseController {
     public Map cacheData(){
         this.baseService.cacheDate();
         return Cache.BASE_CACHE;
+    }
+
+    @RequestMapping("upData")
+    @ResponseBody
+    public boolean upData(@RequestBody Map map){
+        log.info("上传垃圾袋信息：{}",map);
+        return true;
     }
 
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -39,6 +41,10 @@ public class BaseService {
     private MwmTsPointMapper tsPointMapper;
     @Autowired
     private BaseMapper baseMapper;
+    @Autowired
+    private MwmWasteBagMapper wasteBagMapper;
+    @Autowired
+    private MwmCollectDetailMapper collectDetailMapper;
 
     public void cacheDate(){
         List org = this.orgOrgnizationMapper.find();
@@ -69,6 +75,11 @@ public class BaseService {
         Cache.MWM_TYPE = (MdMwmType) Cache.BASE_CACHE.get("type").get(new Random().nextInt(5));
         Cache.TS_POINT = (MwmTsPoint) Cache.BASE_CACHE.get("tsPoint").get(new Random().nextInt(5));
         Cache.WASTE_ROOM = (MwmWasteRoom) Cache.BASE_CACHE.get("wasteRoom").get(new Random().nextInt(49));
+
+        List bag = this.wasteBagMapper.find();
+        Cache.BAG_CACHE.put("bag", bag);
+        List collectDetail = this.collectDetailMapper.find();
+        Cache.BAG_CACHE.put("collectDetail", collectDetail);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -163,6 +174,44 @@ public class BaseService {
         List<String> list = this.baseMapper.findTableName();
         for (String tableName: list){
             this.baseMapper.deleteByTableName(tableName);
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void saveBag(){
+        Date now = new Date();
+        for (int i = 0; i < 100; i++) {
+            MwmWasteBag wasteBag = new MwmWasteBag();
+            wasteBag.setOrgId(Cache.ORG.getId());
+            wasteBag.setOrgCode(Cache.ORG.getCode());
+            wasteBag.setHospitalId(Cache.HOSPITAL.getId());
+            wasteBag.setHospitalCode(Cache.HOSPITAL.getCode());
+            wasteBag.setWrId(Cache.WASTE_ROOM.getId());
+            wasteBag.setWrCode(Cache.WASTE_ROOM.getCode());
+            wasteBag.setWrName(Cache.WASTE_ROOM.getName());
+            wasteBag.setTypeId(Cache.MWM_TYPE.getId());
+            wasteBag.setTypeCode(Cache.MWM_TYPE.getCode());
+            wasteBag.setTypeName(Cache.MWM_TYPE.getName());
+            wasteBag.setWeight(new BigDecimal("18.23"));
+            wasteBag.setQrCode("1934874589"+new Random().nextInt(100));
+            wasteBag.setCollectTime(now);
+            wasteBag.setStatus("2");
+            wasteBag.setExceptionStatus("9");
+            this.wasteBagMapper.insert(wasteBag);
+
+            MwmCollectDetail collectDetail = new MwmCollectDetail();
+            collectDetail.setCollectId(wasteBag.getId());
+            collectDetail.setWrId(Cache.WASTE_ROOM.getId());
+            collectDetail.setWrCode(Cache.WASTE_ROOM.getCode());
+            collectDetail.setWrName(Cache.WASTE_ROOM.getName());
+            collectDetail.setBagId(wasteBag.getId());
+            collectDetail.setTypeId(Cache.MWM_TYPE.getId());
+            collectDetail.setTypeCode(Cache.MWM_TYPE.getCode());
+            collectDetail.setTypeName(Cache.MWM_TYPE.getName());
+            collectDetail.setWeight(wasteBag.getWeight());
+            collectDetail.setQrCode(wasteBag.getQrCode());
+            collectDetail.setCollectTime(now);
+            this.collectDetailMapper.insert(collectDetail);
         }
     }
 

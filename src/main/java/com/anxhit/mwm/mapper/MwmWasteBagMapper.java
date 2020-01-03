@@ -1,6 +1,9 @@
 package com.anxhit.mwm.mapper;
 
 import com.anxhit.mwm.model.MwmWasteBag;
+import jdk.nashorn.internal.runtime.FindProperty;
+
+import java.util.List;
 
 public interface MwmWasteBagMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +17,6 @@ public interface MwmWasteBagMapper {
     int updateByPrimaryKeySelective(MwmWasteBag record);
 
     int updateByPrimaryKey(MwmWasteBag record);
+
+    List find();
 }

@@ -19,4 +19,10 @@ public class ReviewController {
     public Map save(){
         return this.reviewService.save();
     }
+
+    @RequestMapping("exceptionSave")
+    @ResponseBody
+    public Map exceptionSave(){
+        return this.reviewService.exceptionSave();
+    }
 }
